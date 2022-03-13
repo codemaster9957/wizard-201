@@ -1,5 +1,6 @@
 namespace SpriteKind {
     export const BOSS = SpriteKind.create()
+    export const heroshot = SpriteKind.create()
 }
 controller.combos.attachCombo("U+A", function () {
     scaling.scaleByPixels(mySprite, 10, ScaleDirection.Uniformly, ScaleAnchor.Middle)
@@ -81,8 +82,26 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     )
     mySprite2 = 0
 })
-controller.combos.attachCombo("B+U", function () {
-	
+controller.combos.attachCombo("A", function () {
+    new_variable = sprites.createProjectileFromSprite(img`
+        . . . . . . . b b . . . . . . . 
+        . . . . . . b c c b . . . . . . 
+        . . . . . b c c c c b . . . . . 
+        . . . . b c c c c c c b . . . . 
+        . . . . b c c c c c c b . . . . 
+        . . . . b c c c c c c b . . . . 
+        . . . . b c c c c c c b . . . . 
+        . . . . . b c c c c a . . . . . 
+        . . . . . b a c c c b . . . . . 
+        . . . . . . a c c a b . . . . . 
+        . . . . . . b a c b . . . . . . 
+        . . . . . . b a c b . . . . . . 
+        . . . . . . . a c a . . . . . . 
+        . . . . . . . a c a . . . . . . 
+        . . . . . . . a c a . . . . . . 
+        . . . . . . . a c a . . . . . . 
+        `, mySprite, 0, -200)
+    new_variable.setKind(SpriteKind.heroshot)
 })
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -493,6 +512,9 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     mySprite2 = 1
     music.magicWand.play()
 })
+sprites.onOverlap(SpriteKind.heroshot, SpriteKind.BOSS, function (sprite, otherSprite) {
+    statusbar2.value += -5
+})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     mySprite,
@@ -747,13 +769,13 @@ sprites.onOverlap(SpriteKind.BOSS, SpriteKind.Player, function (sprite, otherSpr
 })
 let projectile2: Sprite = null
 let projectile: Sprite = null
+let new_variable: Sprite = null
 let mySprite2 = 0
 let mySprite: Sprite = null
-let mySprite4: Sprite = null
+let statusbar2: StatusBarSprite = null
 let statusbar: StatusBarSprite = null
 statusbar = statusbars.create(20, 4, StatusBarKind.Health)
-let statusbar2 = statusbars.create(50, 5, StatusBarKind.Health)
-statusbar2.attachToSprite(mySprite4)
+statusbar2 = statusbars.create(50, 5, StatusBarKind.EnemyHealth)
 let mySprite3 = sprites.create(img`
     ........................
     ........................
@@ -780,6 +802,10 @@ let mySprite3 = sprites.create(img`
     ........................
     ........................
     `, SpriteKind.BOSS)
+statusbar2.max = 10000
+statusbar2.value = 10000
+statusbar2.setBarBorder(1, 15)
+statusbar2.attachToSprite(mySprite3)
 scaling.scaleByPixels(mySprite3, 30, ScaleDirection.Uniformly, ScaleAnchor.Middle)
 mySprite = sprites.create(img`
     .....ffff...........
