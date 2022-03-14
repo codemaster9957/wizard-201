@@ -2,6 +2,27 @@ namespace SpriteKind {
     export const BOSS = SpriteKind.create()
     export const heroshot = SpriteKind.create()
 }
+controller.combos.attachCombo("", function () {
+    new_variable = sprites.createProjectileFromSprite(img`
+        . . . . . . . b b . . . . . . . 
+        . . . . . . b c c b . . . . . . 
+        . . . . . b c c c c b . . . . . 
+        . . . . b c c c c c c b . . . . 
+        . . . . b c c c c c c b . . . . 
+        . . . . b c c c c c c b . . . . 
+        . . . . b c c c c c c b . . . . 
+        . . . . . b c c c c a . . . . . 
+        . . . . . b a c c c b . . . . . 
+        . . . . . . a c c a b . . . . . 
+        . . . . . . b a c b . . . . . . 
+        . . . . . . b a c b . . . . . . 
+        . . . . . . . a c a . . . . . . 
+        . . . . . . . a c a . . . . . . 
+        . . . . . . . a c a . . . . . . 
+        . . . . . . . a c a . . . . . . 
+        `, mySprite, 0, -200)
+    new_variable.setKind(SpriteKind.heroshot)
+})
 controller.combos.attachCombo("U+A", function () {
     scaling.scaleByPixels(mySprite, 10, ScaleDirection.Uniformly, ScaleAnchor.Middle)
 })
@@ -81,27 +102,6 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
     mySprite2 = 0
-})
-controller.combos.attachCombo("A", function () {
-    new_variable = sprites.createProjectileFromSprite(img`
-        . . . . . . . b b . . . . . . . 
-        . . . . . . b c c b . . . . . . 
-        . . . . . b c c c c b . . . . . 
-        . . . . b c c c c c c b . . . . 
-        . . . . b c c c c c c b . . . . 
-        . . . . b c c c c c c b . . . . 
-        . . . . b c c c c c c b . . . . 
-        . . . . . b c c c c a . . . . . 
-        . . . . . b a c c c b . . . . . 
-        . . . . . . a c c a b . . . . . 
-        . . . . . . b a c b . . . . . . 
-        . . . . . . b a c b . . . . . . 
-        . . . . . . . a c a . . . . . . 
-        . . . . . . . a c a . . . . . . 
-        . . . . . . . a c a . . . . . . 
-        . . . . . . . a c a . . . . . . 
-        `, mySprite, 0, -200)
-    new_variable.setKind(SpriteKind.heroshot)
 })
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
